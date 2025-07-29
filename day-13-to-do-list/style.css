@@ -1,0 +1,225 @@
+/*
+
+1. Global / Reset Styles:
+
+Sabse pehle, kya aapko browser ke default styles ko reset karna hai? Browsers ki apni default margin, padding hoti hai jo alag-alag browsers mein alag dikh sakti hai. Ek simple reset ya box-sizing: border-box; se shuru karna ek acchi practice hai. 
+
+Font family aur basic text color jaise global properties ko body par set karna accha rehta hai, taki poori app mein consistency rahe.
+
+*/
+
+/* 
+
+2. Layout Planning (Boxes ki Soch): 
+
+Aapne divs ka use kiya hai (container, header, add-todo, todo-container, todosList). Har div ko ek "box" ki tarah imagine karo.
+
+In boxes ko screen par kaise align karna hai? Kya yeh center mein aane chahiye? Kya inki width fixed hogi ya responsive?
+
+Yahan Flexbox ya CSS Grid ka socho. Aapki container div poori app ko hold kar rahi hai, toh ho sakta hai usse display: flex; ya display: grid; dekar uske andar ke elements ko organize kiya jaye.
+
+*/
+
+/* 
+
+3. Component-wise Styling:
+
+    1. Apne HTML ko छोटे-छोटे components mein break karo. Jaise:
+        a. Header (#header): Iska background, text alignment, padding kaisa hoga? h1 aur p tag ko kya font size aur color dena hai?
+
+        b. Add ToDo section (#add-todo): input aur button ek line mein honge ya ek ke neeche ek? Inki size, padding, border kaisi hogi? Button ka color aur hover effect kya hoga?
+
+        c. ToDo List Container (#todo-container aur #todosList): Jab hum items add karenge, toh woh kaise dikhenge? Unke beech spacing kaise hogi? Border/shadow deni hai kya?
+
+
+
+*/
+
+/* 
+
+4. Details aur Refinements: 
+
+Colors: Apni app ke liye ek color palette choose karo. Background colors, text colors, button colors – in sab mein consistency honi chahiye.
+
+Typography: Fonts ka size, weight, line-height. Kya headings bold honge? Paragraphs ka size kya hoga?
+
+Spacing: Elements ke beech margin aur padding ka use karo. margin external spacing ke liye aur padding internal spacing ke liye.
+
+Borders & Shadows: Elements ko alag se highlight karne ke liye border ya box-shadow ka use kar sakte ho.
+
+Hover/Focus States: buttons aur input fields par hover aur focus effects add karna user experience ko better banata hai.
+
+*/
+
+/* --- 1. Global / Reset Styles --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* Har element ki padding aur border uski width/height mein include hogi */
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Arial", sans-serif; /* Ek common font family */
+  background-color: #f4f4f4; /* Light grey background */
+  color: #333; /* Default text color */
+  display: flex; /* Body ko flex container banate hain */
+  justify-content: center; /* Content ko horizontally center karne ke liye */
+  align-items: center; /* Content ko vertically center karne ke liye */
+  min-height: 100vh; /* Minimum height viewport ke barabar tak taki content center ho sake */
+}
+
+/* --- 2. Layout Planning --- */
+
+#container {
+  background-color: #ffffff; /* White background for the main container */
+  border-radius: 8px; /* Slightly rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  width: 90%; /* Responsive width */
+  max-width: 500px; /* Maximum width set karte hain */
+  padding: 25px; /* Internal spacing */
+  display: flex; /* Container ke andar ke elements ko arrange karne ke liye */
+  flex-direction: column; /* Elements ko column-wise stack karega */
+  gap: 20px; /* Elements ke beech vertical space */
+}
+
+/* --- 3. Component-wise Styling --- */
+
+#header {
+  text-align: center; /* Text ko center mein align karein */
+  padding-bottom: 15px; /* Niche se thodi padding */
+  border-bottom: 1px solid #eee; /* Bottom border */
+}
+
+#header h1 {
+  color: #3f51b5; /* Primary blue color for heading */
+  margin-bottom: 5px; /* H1 aur P ke beech space */
+}
+
+#header p {
+  color: #666; /* Slightly lighter color for paragraph */
+  font-size: 0.9em;
+}
+
+#add-todo {
+  display: flex; /* Input aur button ko ek line mein laane ke liye */
+  gap: 10px; /* Input aur button ke beech space */
+}
+
+#todo-input {
+  flex-grow: 1; /* Input field ko zyada space dene ke liye */
+  padding: 12px 15px; /* Internal padding */
+  border: 1px solid #ddd; /* Light grey border */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 1rem;
+  outline: none; /* Focus outline remove karein */
+  transition: border-color 0.3s ease; /* Smooth transition on focus */
+}
+
+#todo-input:focus {
+  border-color: #3f51b5; /* Blue border on focus */
+}
+
+#btn-add-todo {
+  background-color: #3f51b5; /* Button ka background color */
+  color: white; /* Button text color */
+  padding: 12px 20px; /* Internal padding */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Cursor pointer on hover */
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.1s ease; /* Smooth transition */
+}
+
+#btn-add-todo:hover {
+  background-color: #303f9f; /* Darker blue on hover */
+  transform: translateY(-1px); /* Slight lift effect */
+}
+
+#btn-add-todo:active {
+  transform: translateY(0); /* Press effect */
+}
+
+#todo-container {
+  background-color: #f9f9f9; /* Light background for todo list area */
+  border: 1px solid #eee; /* Light border */
+  border-radius: 5px;
+  padding: 15px;
+  height: 600px; /* Thodi minimum height */
+  overflow-y: auto;
+  /* Abhi #todosList empty hai, jab JS se items aayenge tab unhe style karenge */
+}
+
+/* Scroll styling - optional but looks better */
+#todo-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+#todo-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+#todo-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+#todo-container::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Todo Items Styling */
+.todo-item {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.todo-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.todo-text {
+  flex-grow: 1;
+  font-size: 1rem;
+  color: #333;
+  padding: 5px 0;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.edit-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #45a049;
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #da190b;
+}
